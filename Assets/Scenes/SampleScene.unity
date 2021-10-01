@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e689038092fae8458d2f744081a6027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 132753790653078536, guid: 1fa35564b1902ed4d9d9ab9192c28e3c, type: 3}
   healthBar: {fileID: 600964965}
   scoreText: {fileID: 1828942089}
   curScore: 0
@@ -1280,6 +1281,10 @@ PrefabInstance:
     - target: {fileID: 3841232767468922810, guid: 17b37f5cb3e48d94e9afb6ab132082a6, type: 3}
       propertyPath: m_Name
       value: RedPlayerShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841232767468922810, guid: 17b37f5cb3e48d94e9afb6ab132082a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b37f5cb3e48d94e9afb6ab132082a6, type: 3}

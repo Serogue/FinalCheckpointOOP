@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //THIS
 
+    public GameObject explosionPrefab;
+    
     float xRange = 7f;
     float yRange = 4.5f; //screen boundaries
 

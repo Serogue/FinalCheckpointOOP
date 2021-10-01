@@ -75,6 +75,7 @@ public abstract class AlienShip : MonoBehaviour
             if (health <= 0)
             {
                 GameManager.instance.AddScore(damage);
+                Instantiate(GameManager.instance.explosionPrefab, transform.position, GameManager.instance.explosionPrefab.transform.rotation);
                 Destroy(gameObject);
             }
         }

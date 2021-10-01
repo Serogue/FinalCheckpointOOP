@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             currentHull -= collision.gameObject.GetComponent<Projectile>().damage;
+            Instantiate(GameManager.instance.explosionPrefab, transform.position, GameManager.instance.explosionPrefab.transform.rotation);
             Destroy(collision.gameObject);
         }
     }
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) //for ships
     {
         currentHull -= collision.gameObject.GetComponent<AlienShip>().GetCollisionDamage();
+        Instantiate(GameManager.instance.explosionPrefab, transform.position, GameManager.instance.explosionPrefab.transform.rotation);
         Destroy(collision.gameObject);
     }
 

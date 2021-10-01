@@ -39,7 +39,7 @@ public class AlienShip2 : AlienShip
         Vector2 lookAt = (Vector2)transform.position - FindPlayerPos();
 
         float angle = Mathf.Atan2(lookAt.y, lookAt.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 0, angle)), speedX / 3);
     }
 
     public override void Fire()
