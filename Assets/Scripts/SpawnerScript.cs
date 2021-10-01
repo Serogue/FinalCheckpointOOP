@@ -11,13 +11,13 @@ public class SpawnerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnEnemies", 1, 1);
+        InvokeRepeating("SpawnEnemies", 2, 1.5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void SpawnEnemies()
@@ -27,18 +27,25 @@ public class SpawnerScript : MonoBehaviour
             spawnOffsetY = Random.Range(-4f, 4f);
 
             int toSpawn;
+            int randomizer = Random.Range(0, 10);
+            Debug.Log("Spawn " + randomizer);
 
-            if (Random.Range(0, 5) == 0) //rocket
+            if (randomizer > 7) //rocket launcher
             {
-                toSpawn = 0;
+                toSpawn = 2;
             }
-            else
+
+            else if (randomizer > 0)
             {
                 toSpawn = 1;
             }
+            else //rocket
+            {
+                toSpawn = 0;
+            }
             Instantiate(enemyPrefabs[toSpawn], new Vector2(10, spawnOffsetY), enemyPrefabs[toSpawn].transform.rotation);
         }
-        
-        
+
+
     }
 }

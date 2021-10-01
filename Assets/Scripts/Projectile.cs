@@ -17,8 +17,8 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 moveTo = Vector2.right * dir * speed * Time.deltaTime;
-        transform.position += moveTo;
+        Vector2 moveTo = Vector2.right * dir * speed * Time.deltaTime;
+        transform.position += (Vector3)moveTo;
     }
 
     private void OnBecameInvisible()

@@ -14,8 +14,10 @@ public abstract class AlienShip : MonoBehaviour
 
     protected Vector2 playerPos;
 
-    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] protected GameObject projectilePrefab;
     [SerializeField] protected Vector2 projectileOffset;
+
+    bool canFire = false; //don't spam when spawned
 
 
 
@@ -29,13 +31,16 @@ public abstract class AlienShip : MonoBehaviour
     public virtual void Update()
     {
         Move();
-        if (transform.position.x < -9)
+        if (transform.position.x < -10)
         {
             Destroy(gameObject);
         }
 
-        Fire();
-
+        if (canFire)
+        {
+            Fire();
+        }
+        
     }
 
     public virtual void Move()
@@ -106,4 +111,15 @@ public abstract class AlienShip : MonoBehaviour
     {
         return damage;
     }
+
+    private void OnBecameVisible()
+    {
+        canFire = true;
+    }
+
+    private void OnBecameInvisible()
+    {
+        canFire = false;
+    }
+
 }
