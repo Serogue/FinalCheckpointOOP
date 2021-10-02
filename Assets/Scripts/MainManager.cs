@@ -20,11 +20,6 @@ public class MainManager : MonoBehaviour
 
     [SerializeField] public GameObject chosenShip { get; private set; }
 
-
-
-
-
-
     void Awake()
     {
         if (instance == null)
@@ -40,6 +35,11 @@ public class MainManager : MonoBehaviour
     private void Start()
     {
         RefreshHiScore();
+    }
+
+    private void Update()
+    {
+        //RefreshHiScore();
     }
 
     public void Launch(GameObject ship)
@@ -77,7 +77,7 @@ public class MainManager : MonoBehaviour
             toWrite.name = "";
             toWrite.hiPlayer = "";
         }
-        
+
 
         string path = Application.persistentDataPath + "/savefile.json";
 

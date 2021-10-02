@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -50,6 +51,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     [SerializeField] int curScore = 0;
 
+    [SerializeField] GameObject gameOverScreen;
+
 
     private void Awake() //THIS
     {
@@ -85,21 +88,16 @@ public class GameManager : MonoBehaviour
             healthBar.value = m_Player.currentHull / m_Player.maxHull;
             if (m_Player.currentHull <= 0)
             {
-                if (curScore > MainManager.instance.hiScore)
-                {
-                    MainManager.instance.hiScore = curScore;
-                    
-                    MainManager.instance.hiPlayer = playerName;
-                    
-                }
-
-
-                MainManager.instance.SaveHiScore(false);
-                gameOver = true;
-                Destroy(m_Player.gameObject);
-                player = null;
+                GameOverRoutine();
             }
 
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 
@@ -124,6 +122,28 @@ public class GameManager : MonoBehaviour
             curScore += scoresToAdd;
         }
 
+    }
+
+    void GameOverRoutine()
+    {
+        if (curScore > MainManager.instance.hiScore)
+        {
+            MainManager.instance.hiScore = curScore;
+            MainManager.instance.hiPlayer = playerName;
+        }
+
+        MainManager.instance.SaveHiScore(false);
+        gameOver = true;
+        Destroy(m_Player.gameObject);
+        player = null;
+
+        gameOverScreen.SetActive(true);
+
+    }
+
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("Title");
     }
 
 }

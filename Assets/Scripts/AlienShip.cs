@@ -67,7 +67,7 @@ public abstract class AlienShip : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D collision) //for projectiles
     {
-        if (!collision.CompareTag("Enemy"))
+        if (!collision.CompareTag("Enemy") && !collision.CompareTag("Pickup"))
         {
             Destroy(collision.gameObject);
             health -= collision.GetComponent<Projectile>().damage;
