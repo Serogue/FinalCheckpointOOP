@@ -9,7 +9,7 @@ public class RedShip : PlayerController
     {
         speed = 10;
         maxHull = 5;
-        damage = 1;
+        damage = 2;
         projectileSpeed = 20f;
         rateOfFire = 0.2f;
         base.Start();

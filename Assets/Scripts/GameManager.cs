@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public float xRange { get; private set; }
     public float yRange { get; private set; } //screen boundaries
 
-    public Vector2 playerPos { get; private set; }
+    public Vector2 playerPos { get; private set; } // ENCAPSULATION
 
     private PlayerController m_Player; //having fun with properties
     public PlayerController player
@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //ABSTRACTION
     private void HandlePlayer()
     {
         playerPos = m_Player.transform.position;
@@ -124,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //ABSTRACTION
     void GameOverRoutine()
     {
         if (curScore > MainManager.instance.hiScore)

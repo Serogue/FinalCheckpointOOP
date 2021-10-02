@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AlienShip : MonoBehaviour
+public abstract class AlienShip : MonoBehaviour // INHERITANCE
 {
     protected int health = 1;
     protected float speedX = 1;
@@ -43,6 +43,7 @@ public abstract class AlienShip : MonoBehaviour
         
     }
 
+    //ABSTRACTION // POLYMORPHISM
     public virtual void Move()
     {
         Vector2 whereToY = Vector2.zero;
@@ -65,6 +66,7 @@ public abstract class AlienShip : MonoBehaviour
         return GameManager.instance.playerPos;
     }
 
+    //ABSTRACTION
     protected void OnTriggerEnter2D(Collider2D collision) //for projectiles
     {
         if (!collision.CompareTag("Enemy") && !collision.CompareTag("Pickup"))
@@ -83,7 +85,7 @@ public abstract class AlienShip : MonoBehaviour
 
     }
 
-    public virtual void Fire()
+    public virtual void Fire() // POLYMORPHISM //ABSTRACTION
     {
         if (timeToFire <= 0)
         {
@@ -108,7 +110,7 @@ public abstract class AlienShip : MonoBehaviour
 
     }
 
-    public int GetCollisionDamage()
+    public int GetCollisionDamage() //ABSTRACTION
     {
         return damage;
     }

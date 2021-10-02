@@ -11,7 +11,7 @@ public abstract class PlayerController : MonoBehaviour
 
     protected float speed;
     public float maxHull;
-    public float currentHull;
+    public float currentHull; //no encapsulation without a backing field!
     protected float projectileSpeed;
 
     protected int damage;
@@ -61,7 +61,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         if (!collision.CompareTag("Player"))
         {
-            currentHull -= collision.gameObject.GetComponent<Projectile>().damage;
+            GetDamaged(collision.gameObject.GetComponent<Projectile>().damage);
             
             Destroy(collision.gameObject);
         }
@@ -74,7 +74,7 @@ public abstract class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) //for ships
     {
-        currentHull -= collision.gameObject.GetComponent<AlienShip>().GetCollisionDamage();
+        GetDamaged(collision.gameObject.GetComponent<AlienShip>().GetCollisionDamage());
         Instantiate(GameManager.instance.explosionPrefab, transform.position, GameManager.instance.explosionPrefab.transform.rotation);
         Destroy(collision.gameObject);
     }
@@ -101,6 +101,14 @@ public abstract class PlayerController : MonoBehaviour
         transform.position = newPos;
     }
 
-    
+    void GetDamaged(int damage) //or healed
+        // using encapsulation causes stack overflow for some reasons
+    {
+        currentHull -= damage;
+        if (currentHull > maxHull)
+        {
+            currentHull = maxHull;
+        }
+    }
 
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlienShip1 : AlienShip
+public class AlienShip1 : AlienShip // INHERITANCE
 {
 
 

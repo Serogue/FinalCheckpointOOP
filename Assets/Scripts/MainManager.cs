@@ -13,12 +13,12 @@ public class MainManager : MonoBehaviour
 
     public TextMeshProUGUI hiScoreText;
     public InputField playerNameField;
-    public string playerName { get; private set; }
+    public string playerName { get; private set; } // ENCAPSULATION
 
     public int hiScore;
     public string hiPlayer;
 
-    [SerializeField] public GameObject chosenShip { get; private set; }
+    [SerializeField] public GameObject chosenShip { get; private set; } // ENCAPSULATION
 
     void Awake()
     {

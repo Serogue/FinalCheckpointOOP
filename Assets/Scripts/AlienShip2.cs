@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlienShip2 : AlienShip
+public class AlienShip2 : AlienShip // INHERITANCE
 {
 
     private Vector2 moveDir;
     public GameObject projectile;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() // INHERITANCE
     {
         health = 10;
         speedX = 3;
@@ -27,6 +27,7 @@ public class AlienShip2 : AlienShip
         TurnToPlayer();
     }
 
+    // POLYMORPHISM
     public override void Move()
     {
         //Vector2 move = new Vector2(-speedX * Time.deltaTime, 0);
@@ -42,6 +43,7 @@ public class AlienShip2 : AlienShip
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 0, angle)), speedX / 3);
     }
 
+    // POLYMORPHISM
     public override void Fire()
     {
         if (timeToFire <= 0)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlienShip0 : AlienShip
+public class AlienShip0 : AlienShip // INHERITANCE
 {
     // Start is called before the first frame update
     void Start()
@@ -14,6 +14,7 @@ public class AlienShip0 : AlienShip
 
     }
 
+    // POLYMORPHISM
     public override void Fire()
     {
         
