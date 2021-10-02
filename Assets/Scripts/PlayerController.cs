@@ -2,23 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public abstract class PlayerController : MonoBehaviour
 {
     Rigidbody2D playerRb;
 
     public GameObject projectilePrefab;
     public Vector3 projectileOffset = new Vector2(1.04f, -0.25f);
 
-    public float speed = 10;
-    public float maxHull = 5;
+    protected float speed;
+    public float maxHull;
     public float currentHull;
+    protected float projectileSpeed;
 
-    public int damage = 2;
+    protected int damage;
+
+    protected float rateOfFire;
+    protected float timeToFire;
 
 
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         GameManager.instance.player = gameObject.GetComponent<PlayerController>();
         playerRb = GetComponent<Rigidbody2D>();
@@ -29,18 +33,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        timeToFire -= Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.Space) && timeToFire <= 0)
+        {
+            Fire();
+            timeToFire = rateOfFire;
+        }
     }
 
-    
+
 
     public void Fire()
     {
         Projectile projectile = projectilePrefab.GetComponent<Projectile>();
         projectile.damage = damage;
         projectile.dir = 1;
-        projectile.speed = 20f;
-        
+        projectile.speed = projectileSpeed;
+
         projectile.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 200);
         projectile.gameObject.tag = "Player";
 
@@ -49,12 +59,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) //for projectiles
     {
-        if (collision.CompareTag("Enemy"))
+        if (!collision.CompareTag("Player"))
         {
             currentHull -= collision.gameObject.GetComponent<Projectile>().damage;
-            Instantiate(GameManager.instance.explosionPrefab, transform.position, GameManager.instance.explosionPrefab.transform.rotation);
+            
             Destroy(collision.gameObject);
         }
+        if (collision.CompareTag("Enemy"))
+        {
+            Instantiate(GameManager.instance.explosionPrefab, transform.position, GameManager.instance.explosionPrefab.transform.rotation);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision) //for ships
@@ -64,6 +79,28 @@ public class PlayerController : MonoBehaviour
         Destroy(collision.gameObject);
     }
 
+    private void FixedUpdate()
+    {
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
 
+        Vector2 playerPos = transform.position;
+
+        Vector2 newPos = new Vector2((horizontalInput * speed * Time.deltaTime), (verticalInput * speed * Time.deltaTime)) + playerPos;
+
+        if (newPos.x < -GameManager.instance.xRange || newPos.x > GameManager.instance.xRange)
+        {
+            newPos.x = playerPos.x;
+        }
+        if (newPos.y < -GameManager.instance.yRange || newPos.y > GameManager.instance.yRange)
+        {
+            newPos.y = playerPos.y;
+
+        }
+
+        transform.position = newPos;
+    }
+
+    
 
 }

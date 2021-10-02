@@ -9,9 +9,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; //THIS
 
     public GameObject explosionPrefab;
-    
-    float xRange = 7f;
-    float yRange = 4.5f; //screen boundaries
+
+    public float xRange { get; private set; }
+    public float yRange { get; private set; } //screen boundaries
 
     public Vector2 playerPos { get; private set; }
 
@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour
     bool gameOver = false;
 
     public TextMeshProUGUI scoreText;
-    [SerializeField]int curScore = 0;
-    
+    [SerializeField] int curScore = 0;
+
 
     private void Awake() //THIS
     {
@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        xRange = 7f;
+        yRange = 4.5f;
     }
 
     // Update is called once per frame
@@ -81,12 +82,7 @@ public class GameManager : MonoBehaviour
                 //Destroy(m_Player.gameObject);
                 //player = null;
             }
-            
-            
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_Player.Fire();
-            }
+
         }
     }
 
@@ -101,24 +97,7 @@ public class GameManager : MonoBehaviour
 
     private void HandlePlayer()
     {
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
-
         playerPos = m_Player.transform.position;
-
-        Vector2 newPos = new Vector2((horizontalInput * m_Player.speed * Time.deltaTime), (verticalInput * m_Player.speed * Time.deltaTime)) + playerPos;
-
-        if (newPos.x < -xRange || newPos.x > xRange)
-        {
-            newPos.x = playerPos.x;
-        }
-        if (newPos.y < -yRange || newPos.y > yRange)
-        {
-            newPos.y = playerPos.y;
-
-        }
-
-        m_Player.transform.position = newPos;
     }
 
     public void AddScore(int scoresToAdd)
