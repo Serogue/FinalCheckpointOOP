@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     public Slider healthBar;
     bool gameOver = false;
 
+    public string playerName { get; private set; }
+
     public TextMeshProUGUI scoreText;
     [SerializeField] int curScore = 0;
 
@@ -58,6 +60,12 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        if (MainManager.instance != null)
+        {
+            playerName = MainManager.instance.playerName;
+            Instantiate(MainManager.instance.chosenShip, new Vector2(0, 0), MainManager.instance.chosenShip.transform.rotation);
         }
     }
 
@@ -74,13 +82,22 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + curScore;
         if (m_Player != null)
         {
-
             healthBar.value = m_Player.currentHull / m_Player.maxHull;
             if (m_Player.currentHull <= 0)
             {
-                //gameOver = true;
-                //Destroy(m_Player.gameObject);
-                //player = null;
+                if (curScore > MainManager.instance.hiScore)
+                {
+                    MainManager.instance.hiScore = curScore;
+                    
+                    MainManager.instance.hiPlayer = playerName;
+                    
+                }
+
+
+                MainManager.instance.SaveHiScore(false);
+                gameOver = true;
+                Destroy(m_Player.gameObject);
+                player = null;
             }
 
         }
